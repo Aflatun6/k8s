@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: phonebook
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: backend
+          image: avelibeyli6/frontend
+          ports:
+            - name: http
+              containerPort: 9090
+          env:
+            - name: BACKEND
+              # valueFrom:
+              #   configMapKeyRef:
+              #     name: frontend-config
+              #     key: backend_url
+              value: backend-service

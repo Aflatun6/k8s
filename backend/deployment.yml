@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: phonebook
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: avelibeyli6/backend
+        ports:
+        - name: http
+          containerPort: 8090
+        env:
+          - name: MYSQL_URL
+            valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: database_url
+          - name: MYSQL_USER
+            valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database_username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database_password

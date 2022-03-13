@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: phonebook
+data:
+  database_url: jdbc:mysql://finalproject.cahpjkshbqdh.eu-west-1.rds.amazonaws.com:3306/phonebook
